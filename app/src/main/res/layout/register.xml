@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login">
+
+    <android.widget.Button
+        android:id="@+id/btnRegister"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="39dp"
+        android:background="#90CF47"
+        android:text="Register"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edtConfirm"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="23dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Confirm password"
+        android:inputType="textPassword"
+        android:textColorHint="#979292"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/edtPassword2"
+        app:layout_constraintTop_toBottomOf="@+id/edtPassword2" />
+
+    <EditText
+        android:id="@+id/edtName"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="152dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Enter username"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#979292"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvTitle4" />
+
+    <EditText
+        android:id="@+id/edtPassword2"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="23dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Enter password"
+        android:inputType="textPassword"
+        android:textColorHint="#979292"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/edtEmail2"
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail2" />
+
+    <EditText
+        android:id="@+id/edtEmail2"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="23dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Enter email"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#979292"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/edtName"
+        app:layout_constraintTop_toBottomOf="@+id/edtName" />
+
+    <TextView
+        android:id="@+id/txvTitle4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wonderful Trip!"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="@+id/txvTitle3"
+        app:layout_constraintTop_toBottomOf="@+id/txvTitle3" />
+
+    <TextView
+        android:id="@+id/txvTitle3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Register"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
