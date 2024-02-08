@@ -6,68 +6,91 @@
     android:layout_height="match_parent"
     android:background="@drawable/login">
 
+    <TextView
+        android:id="@+id/txvTitle8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:gravity="start"
+        android:text="Register"
+        android:textColor="#2196F3"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/txvTitle7"
+        app:layout_constraintTop_toTopOf="@+id/txvTitle7" />
+
+    <TextView
+        android:id="@+id/txvTitle7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="30dp"
+        android:gravity="end"
+        android:text="Don't have an account yet?"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTourist" />
+
     <EditText
         android:id="@+id/edtEmail"
-        android:layout_width="330dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="166dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="192dp"
+        android:layout_marginEnd="20dp"
         android:background="@color/white"
         android:ems="10"
         android:hint="Enter email"
         android:inputType="textEmailAddress"
         android:textColorHint="#979292"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvTitle2" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.249" />
 
     <EditText
         android:id="@+id/edtPassword"
-        android:layout_width="330dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="37dp"
+        android:layout_marginEnd="21dp"
         android:background="@color/white"
         android:ems="10"
         android:hint="Enter password"
         android:inputType="textPassword"
         android:textColorHint="#979292"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
 
     <android.widget.Button
         android:id="@+id/btnLogin"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="#90CF47"
         android:text="Sign In"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/edtPassword"
         app:layout_constraintStart_toStartOf="@+id/edtPassword"
         app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
 
     <android.widget.Button
         android:id="@+id/btnTourist"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="5dp"
         android:background="#90CF47"
         android:text="Login as tourists"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-    <android.widget.Button
-        android:id="@+id/btnCreate"
-        android:layout_width="330dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:background="#90CF47"
-        android:text="Create Account"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/btnTourist"
-        app:layout_constraintTop_toBottomOf="@+id/btnTourist" />
+        app:layout_constraintTop_toBottomOf="@+id/txvTitle6" />
 
     <TextView
         android:id="@+id/txvTitle1"
@@ -75,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Sign in"
+        android:text="GreenSort"
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -88,5 +111,37 @@
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="@+id/txvTitle1"
         app:layout_constraintTop_toBottomOf="@+id/txvTitle1" />
+
+    <TextView
+        android:id="@+id/txvTitle5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Login to account"
+        android:textColor="#0F1010"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.337"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <TextView
+        android:id="@+id/txvTitle6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="180dp"
+        android:text="OR"
+        android:textColor="#0E0E0E"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
