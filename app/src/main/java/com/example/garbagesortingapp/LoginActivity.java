@@ -6,8 +6,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnTourist;
     private TextView txvTitle7;
     private TextView txvTitle8;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +42,13 @@ public class LoginActivity extends AppCompatActivity {
         txvTitle7 = findViewById(R.id.txvTitle7);
         txvTitle8 = findViewById(R.id.txvTitle8);
 
+        mAuth = FirebaseAuth.getInstance();
+
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                loginUser();
             }
         });
         btnTourist.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +67,24 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void loginUser() {
+        String email = edtEmail.getText().toString().trim();
+        String password = edtPassword.getText().toString().trim();
+
+        if (!email.isEmpty() && !password.isEmpty()) {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "Please enter email and password", Toast.LENGTH_LONG).show();
+        }
     }
 }
 
