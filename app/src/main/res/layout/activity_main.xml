@@ -7,11 +7,175 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/txvBottle"
+        android:layout_width="65dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Bottle"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/imgBtnBottle"
+        app:layout_constraintTop_toBottomOf="@+id/imgBtnBottle" />
+
+    <TextView
+        android:id="@+id/txvKitchen"
+        android:layout_width="65dp"
+        android:layout_height="0dp"
+        android:text="Kitchen"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/imgBtnKitchen"
+        app:layout_constraintTop_toBottomOf="@+id/imgBtnKitchen" />
+
+    <TextView
+        android:id="@+id/txvGeneral"
+        android:layout_width="65dp"
+        android:layout_height="0dp"
+        android:text="General"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/imgBtnGeneral"
+        app:layout_constraintTop_toBottomOf="@+id/imgBtnGeneral" />
+
+    <ImageView
+        android:id="@+id/imv1"
+        android:layout_width="wrap_content"
+        android:layout_height="270dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tlb1"
+        app:srcCompat="@drawable/title" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlb1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_dark"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imgBtnRecycle"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/desc_recycle_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnGeneral"
+        app:layout_constraintTop_toBottomOf="@+id/imv1"
+        app:srcCompat="@drawable/recycle" />
+
+    <ImageButton
+        android:id="@+id/imgBtnGeneral"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/desc_general_button"
+        app:layout_constraintStart_toEndOf="@+id/imgBtnRecycle"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnKitchen"
+        app:layout_constraintTop_toBottomOf="@+id/imv1"
+        app:srcCompat="@drawable/general" />
+
+    <ImageButton
+        android:id="@+id/imgBtnKitchen"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/desc_kitchen_button"
+        app:layout_constraintStart_toEndOf="@+id/imgBtnGeneral"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnBottle"
+        app:layout_constraintTop_toBottomOf="@+id/imv1"
+        app:srcCompat="@drawable/kitchen" />
+
+    <ImageButton
+        android:id="@+id/imgBtnBottle"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/desc_bottle_button"
+        app:layout_constraintStart_toEndOf="@+id/imgBtnKitchen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imv1"
+        app:srcCompat="@drawable/bottle" />
+
+    <TextView
+        android:id="@+id/txvRecycle"
+        android:layout_width="65dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="1dp"
+        android:text="Recycle"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/imgBtnRecycle"
+        app:layout_constraintTop_toBottomOf="@+id/imgBtnRecycle" />
+
+    <android.widget.Button
+        android:id="@+id/btnKnowledge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/gradient_green"
+        android:text="Garbage Classification Knowledge Introduction"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="31sp"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvRecycle" />
+
+    <android.widget.Button
+        android:id="@+id/btnQuary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gradient_blue"
+        android:text="Garbage Classification Query"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="31sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnKnowledge" />
+
+    <android.widget.Button
+        android:id="@+id/btnPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gradient_yellow"
+        android:text="Garbage Collection Point Positioning"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="31sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnQuary" />
+
+    <ImageButton
+        android:id="@+id/imgBtnAccount"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/desc_account_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/account" />
+
+    <TextView
+        android:id="@+id/txvReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="Return"
+        android:textColor="#FAF7F7"
+        android:textSize="48sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -79,7 +81,19 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         } else {
-                            Toast.makeText(LoginActivity.this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            // 检查错误类型，做出相应提示
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseAuthInvalidUserException e) {
+                                // 用户不存在
+                                Toast.makeText(LoginActivity.this, "Please register first", Toast.LENGTH_LONG).show();
+                            } catch (FirebaseAuthInvalidCredentialsException e) {
+                                // 密码错误或账号格式不正确
+                                Toast.makeText(LoginActivity.this, "Wrong login information", Toast.LENGTH_LONG).show();
+                            } catch (Exception e) {
+                                // 其他错误
+                                Toast.makeText(LoginActivity.this, "Login failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
                         }
                     });
         } else {

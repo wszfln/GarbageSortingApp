@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GarbageSortingApp</string>
+    <string name="desc_account_button">Open account information</string>
+    <string name="desc_recycle_button">Open recycling information</string>
+    <string name="desc_general_button">Open general waste information</string>
+    <string name="desc_kitchen_button">Open kitchen waste information</string>
+    <string name="desc_bottle_button">Open bottle waste information</string>
 </resources>

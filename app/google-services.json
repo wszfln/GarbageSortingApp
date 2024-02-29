@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "415007454147",
+    "project_id": "garbagesortingapp",
+    "storage_bucket": "garbagesortingapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415007454147:android:c8ccf9011aae999d860376",
+        "android_client_info": {
+          "package_name": "com.example.garbagesortingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfheQMSCp2ZKxIWe_zbz_xoGqfRQnnmpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
