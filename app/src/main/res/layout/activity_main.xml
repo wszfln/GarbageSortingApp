@@ -119,7 +119,7 @@
         android:id="@+id/btnKnowledge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/gradient_green"
         android:text="Garbage Classification Knowledge Introduction"
         android:textAllCaps="false"
@@ -127,6 +127,7 @@
         android:textSize="31sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txvRecycle" />
 
@@ -134,13 +135,14 @@
         android:id="@+id/btnQuary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/gradient_blue"
         android:text="Garbage Classification Query"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="31sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnKnowledge" />
 
@@ -148,7 +150,7 @@
         android:id="@+id/btnPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/gradient_yellow"
         android:text="Garbage Collection Point Positioning"
         android:textAllCaps="false"
@@ -156,6 +158,7 @@
         android:textSize="31sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnQuary" />
 
