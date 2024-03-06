@@ -26,6 +26,12 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"/>
+        <activity
+            android:name=".QueryActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".AnswerActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
