@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="Bottle"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imgBtnBottle"
         app:layout_constraintTop_toBottomOf="@+id/imgBtnBottle" />
@@ -21,8 +21,8 @@
         android:id="@+id/txvKitchen"
         android:layout_width="65dp"
         android:layout_height="0dp"
-        android:text="Kitchen"
-        android:textSize="18sp"
+        android:text="Compost"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imgBtnKitchen"
         app:layout_constraintTop_toBottomOf="@+id/imgBtnKitchen" />
@@ -32,7 +32,7 @@
         android:layout_width="65dp"
         android:layout_height="0dp"
         android:text="General"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imgBtnGeneral"
         app:layout_constraintTop_toBottomOf="@+id/imgBtnGeneral" />
@@ -110,7 +110,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="1dp"
         android:text="Recycle"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imgBtnRecycle"
         app:layout_constraintTop_toBottomOf="@+id/imgBtnRecycle" />
