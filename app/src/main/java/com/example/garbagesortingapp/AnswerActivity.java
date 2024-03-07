@@ -58,7 +58,7 @@ public class AnswerActivity extends AppCompatActivity {
                 case "general":
                     imageResourceId = R.drawable.general2;
                     break;
-                case "kitchen":
+                case "compost":
                     imageResourceId = R.drawable.kitchen2;
                     break;
                 case "bottle":
