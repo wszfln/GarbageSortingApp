@@ -2,6 +2,7 @@ package com.example.garbagesortingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         btnQuary = findViewById(R.id.btnQuary);
         btnPosition = findViewById(R.id.btnPosition);
         tlb1 = findViewById(R.id.tlb1);
+        // Use current Toolbar as app bar
+        setSupportActionBar(tlb1);
         imv1 = findViewById(R.id.imv1);
 
 
@@ -115,7 +118,9 @@ public class MainActivity extends AppCompatActivity {
         btnQuary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // Create an Intent to start the QueryActivity
+                Intent intent = new Intent(MainActivity.this, QueryActivity.class);
+                startActivity(intent);
             }
         });
         btnPosition.setOnClickListener(new View.OnClickListener() {
