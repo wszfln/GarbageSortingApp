@@ -11,7 +11,7 @@
         android:layout_width="65dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="Bottle"
+        android:text="Glass"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imgBtnBottle"
@@ -119,32 +119,32 @@
         android:id="@+id/btnKnowledge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/gradient_green"
-        android:text="Garbage Classification Knowledge Introduction"
+        android:text="Garbage News/Information"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="31sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvRecycle" />
+        app:layout_constraintTop_toBottomOf="@+id/btnPosition" />
 
     <android.widget.Button
         android:id="@+id/btnQuary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/gradient_blue"
-        android:text="Garbage Classification Query"
+        android:text="Waste type"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="31sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnKnowledge" />
+        app:layout_constraintTop_toBottomOf="@+id/txvKitchen" />
 
     <android.widget.Button
         android:id="@+id/btnPosition"
@@ -152,13 +152,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:background="@drawable/gradient_yellow"
-        android:text="Garbage Collection Point Positioning"
+        android:text="Collection Points"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="31sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnQuary" />
 
