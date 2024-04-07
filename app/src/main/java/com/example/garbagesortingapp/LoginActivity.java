@@ -81,17 +81,17 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         } else {
-                            // 检查错误类型，做出相应提示
+                            // Check the error type and make corresponding prompts
                             try {
                                 throw task.getException();
                             } catch (FirebaseAuthInvalidUserException e) {
-                                // 用户不存在
+                                // User does not exist
                                 Toast.makeText(LoginActivity.this, "Please register first", Toast.LENGTH_LONG).show();
                             } catch (FirebaseAuthInvalidCredentialsException e) {
-                                // 密码错误或账号格式不正确
+                                // Incorrect password or incorrect account format
                                 Toast.makeText(LoginActivity.this, "Wrong login information", Toast.LENGTH_LONG).show();
                             } catch (Exception e) {
-                                // 其他错误
+                                // Other errors
                                 Toast.makeText(LoginActivity.this, "Login failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }

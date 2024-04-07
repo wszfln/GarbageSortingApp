@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -71,6 +72,8 @@ public class QueryActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 2;
     private ActivityResultLauncher<Intent> takePictureLauncher;
     private List<String> labels = new ArrayList<>();
+    private ActivityResultLauncher<Intent> selectImageLauncher;
+    private Bitmap selectedImageBitmap; // 用于存储用户选择的图片
 
     private void loadLabels() {
         try {
@@ -105,17 +108,17 @@ public class QueryActivity extends AppCompatActivity {
     }
 
     private void initializeCamera() {
-        // 检查是否已经有相机权限
+        // Check if camera permission already exists
         Log.d(TAG, "Initializing camera");
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            // 没有权限，需要请求
+            // No permission, need to request
             Log.d(TAG, "Camera permission not granted. Requesting permission.");
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA},
                     PERMISSION_REQUEST_CAMERA);
         } else {
-            // 已有权限，可以启动相机
+            // Already have permission to start the camera
             Log.d(TAG, "Camera permission granted. Opening camera.");
             dispatchTakePictureIntent();
         }
@@ -253,6 +256,40 @@ public class QueryActivity extends AppCompatActivity {
         // Initialize the camera when the scan button is clicked
         btnScan2.setOnClickListener(view -> takePictureLauncher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE)));
 
+        // Select part of photo query from album
+        // Initialize selectImageLauncher and process image selection results
+        selectImageLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri imageUri = result.getData().getData();
+                        try {
+                            // Convert Uri to Bitmap and display on imageViewUpload
+                            selectedImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                            imageViewUpload.setImageBitmap(selectedImageBitmap);
+                        } catch (IOException e) {
+                            Log.e(TAG, "IOException when converting Uri to Bitmap", e);
+                        }
+                    }
+                }
+        );
+
+        // Set a click listener for imageViewUpload to launch the image picker
+        imageViewUpload.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            selectImageLauncher.launch(intent);
+        });
+
+        btnScan3.setOnClickListener(v -> {
+            if (selectedImageBitmap != null) {
+                // Use the model to analyze the picture to obtain the itemName
+                String itemName = classifyImage(selectedImageBitmap);
+                // Call Firebase query and navigate
+                queryFirebaseAndNavigate(itemName);
+            } else {
+                Toast.makeText(QueryActivity.this, "Please select an image first.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
@@ -263,12 +300,12 @@ public class QueryActivity extends AppCompatActivity {
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_CAMERA) {
-            // 检查请求码和结果
+            // Check request code and results
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // 权限被授予，启动相机
+                // Permission granted, launch camera
                 dispatchTakePictureIntent();
             } else {
-                // 权限被拒绝，向用户解释为何需要这个权限
+                // Permission denied, explain to user why this permission is required
                 Toast.makeText(this, "Camera permission is needed to scan items", Toast.LENGTH_SHORT).show();
             }
         }
@@ -281,8 +318,6 @@ public class QueryActivity extends AppCompatActivity {
         }
     }
 
-
-
     private String classifyImage(Bitmap image) {
         if (labels == null || labels.isEmpty()) {
             Log.e(TAG, "Labels are not loaded");
@@ -292,14 +327,11 @@ public class QueryActivity extends AppCompatActivity {
         TensorImage tensorImage = new TensorImage(DataType.UINT8);
         tensorImage.load(image);
         ByteBuffer inputBuffer = tensorImage.getBuffer();
-
         // Run inference
         TensorBuffer outputBuffer = TensorBuffer.createFixedSize(new int[]{1, labels.size()}, DataType.FLOAT32);
         tflite.run(inputBuffer, outputBuffer.getBuffer());
-
         // Obtain the output probabilities from the output buffer
         float[] probabilities = outputBuffer.getFloatArray();
-
         // Find the index of the label with the highest probability
         int maxIndex = -1;
         float maxProb = 0.0f;
@@ -309,12 +341,10 @@ public class QueryActivity extends AppCompatActivity {
                 maxIndex = i;
             }
         }
-
         // Handle the case where no max index is found
         if (maxIndex == -1) {
-            return "Unknown"; // You can handle this case as per your app's logic
+            return "Unknown";
         }
-
         // Return the label corresponding to the highest probability
         return labels.get(maxIndex);
     }
