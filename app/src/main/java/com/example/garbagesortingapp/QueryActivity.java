@@ -39,6 +39,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -95,13 +96,16 @@ public class QueryActivity extends AppCompatActivity {
     // load models
     private void loadModel() {
         try {
-            AssetFileDescriptor fileDescriptor = this.getAssets().openFd("saved_model.tflite");
-            FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
-            FileChannel fileChannel = inputStream.getChannel();
-            long startOffset = fileDescriptor.getStartOffset();
-            long declaredLength = fileDescriptor.getDeclaredLength();
-            tflite = new Interpreter(fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength));
-            Log.d(TAG, "Model loaded successfully.");
+            try (AssetFileDescriptor fileDescriptor = this.getAssets().openFd("saved_model.tflite")) {
+                try (FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor())) {
+                    FileChannel fileChannel = inputStream.getChannel();
+                    long startOffset = fileDescriptor.getStartOffset();
+                    long declaredLength = fileDescriptor.getDeclaredLength();
+                    Interpreter.Options options = new Interpreter.Options();
+                    tflite = new Interpreter(fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength), options);
+                    Log.d(TAG, "Model loaded successfully.");
+                }
+            }
         } catch (IOException e) {
             Log.e(TAG, "IOException loading the tflite file", e);
         }
@@ -294,6 +298,32 @@ public class QueryActivity extends AppCompatActivity {
 
     }
 
+
+    private ByteBuffer convertBitmapToByteBuffer(Bitmap bitmap) {
+        // The expected input size of the model
+        int DIM_IMG_SIZE_X = 224;
+        int DIM_IMG_SIZE_Y = 224;
+        int DIM_PIXEL_SIZE = 3; // For RGB images
+
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, DIM_IMG_SIZE_X, DIM_IMG_SIZE_Y, true);
+
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * DIM_IMG_SIZE_X * DIM_IMG_SIZE_Y * DIM_PIXEL_SIZE);
+        byteBuffer.order(ByteOrder.nativeOrder());
+        int[] intValues = new int[DIM_IMG_SIZE_X * DIM_IMG_SIZE_Y];
+
+        resizedBitmap.getPixels(intValues, 0, resizedBitmap.getWidth(), 0, 0, resizedBitmap.getWidth(), resizedBitmap.getHeight());
+        int pixel = 0;
+        for (int i = 0; i < DIM_IMG_SIZE_X; ++i) {
+            for (int j = 0; j < DIM_IMG_SIZE_Y; ++j) {
+                final int val = intValues[pixel++];
+                byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f / 255.f));
+                byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f / 255.f));
+                byteBuffer.putFloat((val & 0xFF) * (1.f / 255.f));
+            }
+        }
+        return byteBuffer;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -323,10 +353,7 @@ public class QueryActivity extends AppCompatActivity {
             Log.e(TAG, "Labels are not loaded");
             return "Labels not loaded";
         }
-        // Convert the image and use the model to classify it, returning the label name
-        TensorImage tensorImage = new TensorImage(DataType.UINT8);
-        tensorImage.load(image);
-        ByteBuffer inputBuffer = tensorImage.getBuffer();
+        ByteBuffer inputBuffer = convertBitmapToByteBuffer(image);
         // Run inference
         TensorBuffer outputBuffer = TensorBuffer.createFixedSize(new int[]{1, labels.size()}, DataType.FLOAT32);
         tflite.run(inputBuffer, outputBuffer.getBuffer());
