@@ -112,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
         btnKnowledge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this, InformationActivity.class);
+                startActivity(intent);
             }
         });
         btnQuary.setOnClickListener(new View.OnClickListener() {
