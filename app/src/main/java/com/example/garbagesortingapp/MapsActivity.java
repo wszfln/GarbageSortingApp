@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -80,14 +81,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        // Set up a custom info window adapter
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
-                return null;
+                // Use custom layout
+                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+                renderWindowText(marker, infoWindow);
+                return infoWindow;
             }
             @Override
             public View getInfoContents(Marker marker) {
                 return null;
+            }
+            private void renderWindowText(Marker marker, View view) {
+                String title = marker.getTitle();
+                TextView tvTitle = view.findViewById(R.id.tvTitle);
+                if (!title.equals("")) {
+                    tvTitle.setText(title);
+                }
+                String snippet = marker.getSnippet();
+                TextView tvSnippet = view.findViewById(R.id.tvSnippet);
+                if (!snippet.equals("")) {
+                    tvSnippet.setText(snippet);
+                }
             }
         });
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -141,52 +158,29 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
     }
 
-    private void searchLocation(String location) {
-        firestore.collection("collection_points")
-                .whereEqualTo("eircode", location)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (queryDocumentSnapshots.isEmpty()) {
-                            Log.d("Firestore", "No matching documents.");
-                        } else {
-                        for (DocumentSnapshot document : queryDocumentSnapshots) {
-                            CollectionPoint point = document.toObject(CollectionPoint.class);
-                    if (point != null) {
-                        try {
-                            List<Address> addresses = new Geocoder(MapsActivity.this).getFromLocationName(point.getAddress(), 1);
-                            if (!addresses.isEmpty()) {
-                                Address address = addresses.get(0);
-                                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                                MarkerOptions markerOptions = new MarkerOptions()
-                                        .position(latLng)
-                                        .icon(BitmapDescriptorFactory.defaultMarker(getMarkerColor(point.getCategory())))
-                                        .title(point.getName())
-                                        .snippet(point.getAddress() + "\nEircode: " + point.getEircode());
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mMap.addMarker(markerOptions);
-                                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
-                                    }
-                                });
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                            Log.d("Firestore", "Document retrieved.");
-                        }
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("MapsActivity", "Error getting documents: ", e);
-                    }
-                });
+    private void searchLocation(String inputEircode) {
+        // Find input eircode using Geocoder
+        Geocoder geocoder = new Geocoder(MapsActivity.this);
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(inputEircode, 1);
+            if (addresses.isEmpty()) {
+                Toast.makeText(MapsActivity.this, "No location found for the entered Eircode.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            Address address = addresses.get(0);
+            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            runOnUiThread(() -> {
+                // Move to a new location
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+                // add a new tag here
+                mMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Location for Eircode: " + inputEircode));
+            });
+        } catch (IOException e) {
+            Toast.makeText(MapsActivity.this, "Geocoding failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e("MapsActivity", "Geocode failure: ", e);
+        }
     }
 
     private float getMarkerColor(String category) {
