@@ -65,6 +65,10 @@
             android:name=".WebViewActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ExplainActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

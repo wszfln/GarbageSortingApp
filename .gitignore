@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+/app/src/main/res/drawable/ic_compost.jpg
+/app/src/main/res/drawable/ic_general.png
+/app/src/main/res/drawable/ic_glass.jpg
+/app/src/main/res/drawable/ic_recyclable.png

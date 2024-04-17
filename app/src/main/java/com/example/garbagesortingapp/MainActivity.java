@@ -88,25 +88,25 @@ public class MainActivity extends AppCompatActivity {
         imgBtnRecycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivityWithExtra("Recyclable");
             }
         });
         imgBtnGeneral.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivityWithExtra("General");
             }
         });
         imgBtnKitchen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivityWithExtra("Compost");
             }
         });
         imgBtnBottle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivityWithExtra("Glass");
             }
         });
         btnKnowledge.setOnClickListener(new View.OnClickListener() {
@@ -134,5 +134,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+    private void startActivityWithExtra(String trashType) {
+        Intent intent = new Intent(MainActivity.this, ExplainActivity.class);
+        intent.putExtra("TRASH_TYPE", trashType);
+        startActivity(intent);
     }
 }

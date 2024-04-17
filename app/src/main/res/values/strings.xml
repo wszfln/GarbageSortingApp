@@ -5,4 +5,39 @@
     <string name="desc_general_button">Open general waste information</string>
     <string name="desc_kitchen_button">Open kitchen waste information</string>
     <string name="desc_bottle_button">Open bottle waste information</string>
+    <string name="recyclable_detail">Recycling turns our waste materials into new useful products or back into the same thing again - glass bottles &amp; jars are a great example as they are infinitely recyclable. This reduces the use of finite raw materials, saves energy and helps control air, water and land pollution.\n\n
+        Recycling is a group effort. We all have our part to play to not only recycle as much waste as possible but to also make sure our recycling is properly sorted. Recycling that includes non-recyclable items or is contaminated with food waste can end up in landfill.\n\n
+        It only takes a few minutes to rinse out plastic, glass and tin containers and sort our cardboard, this is a simple climate action we can all take.\n\n
+        Currently Ireland recycles approximately 30% of all plastics in use in the country. Recycling targets for packaging are very challenging, by 2025 the target set by the EU is to recycle 50% of all plastic and by 2030 55%. All of us play a part in helping Ireland achieve the EU and national targets. You can play your part by ensuring all soft plastic is now placed in the recycling bin clean, dry and loose.\n\n
+        If your packaging falls into these categories: soft plastics, along with rigid plastics, paper &amp; card, tins &amp; cans, it can be placed in the recycle bin - clean, dry and loose</string>
+    <string name="general_detail">Your general waste includes items that cannot be recycled or composted and must be sent to landfill. You should check if your trash can be recycled or goes into organic waste. General waste is sometimes referred to as "black bin" waste.\n\n
+        The latest national municipal waste characterisation project found over two thirds of waste in the general household and commercial bins could have been placed in the recycling and organic waste bins.  Food waste and plastics are the most common wastes in our bins.\n\n
+        The five most common wastes in the household general waste bin are: food waste (17%), plastics (17%), nappies (10%), textiles excluding nappies (9%) and papers (8%)</string>
+    <string name="compost_detail">Every household in Ireland is responsible for 117kgs of food waste per year.\n\n
+        That’s between €400 and €1,000 per household per year thrown into the bin.\n\n
+        And it’s not just a waste of money, it’s also costing the earth.  Food waste sent to landfill does not harmlessly break down but instead releases methane, a greenhouse gas 25 times more potent than carbon dioxide.\n\n
+        Where possible we should prevent food waste in the first instance. Top tips to prevent food waste include checking your store cupboard before you shop, have a list, only buy what you need and don\'t be tempted by special offers on perishable foods.\n\n
+        Do you know that:\n
+        60% is Avoidable food waste such Plate scrapings, leftovers, gone off fruit and veg and passed its date perishables. We can control this waste easily by serving smaller portion sizes at meals times and by shopping smarter\n
+        20 % is Potentially Avoidable food waste –  things like bread crusts, potato skins. This waste could be used in another way; crusts could be made into bread crumbs and then frozen until you need them.\n
+        20% is Unavoidable food waste – such as banana skins and chicken bones\n
+        The good news is food waste doesn’t have to end up in landfill. It can be recycled by using your food waste recycling bin. All households living in a population agglomeration >500 people are entitled to a Food Waste Recycling service from their waste collector.\n\n
+        Households with a kerbside collection for food waste can simply separate cooked and raw food and leave the bin out as part of your normal kerbside waste collection so it can be sent to a composting site or to an anaerobic digestion plant to make green energy.\n\n
+        Home composting is an option if a food waste recycling bin is not available to you at the moment.\n\n
+        What is composting?\n
+        Composting means the controlled decomposition of organic material such as light garden waste, vegetables scraps, wood shavings, cardboard and paper. It is a means of recovery or recycling of organic matter into compost, for soil improvement or as a fertilizer.\n\n
+        The compost you can make at home is rich in nutrients and full of life and when used in your garden and on your plants, feeds the ecosystem of the soil and slowly releases nutrients that plants can absorb. Using compost is the foundation of maintaining healthy soil for stimulating all plant growth and creating a beautiful garden\n\n
+        Why compost at home?\n
+        Home composting will help to reduce the amount of waste that goes to the landfill or incineration [if you don’t have a food waste collection service] and re-uses valuable nutrients that would have otherwise gone to waste. Food waste is a huge problem worldwide and throwing out a big portion of the food produced is a lot of wasted energy.\n\n
+        It can save you money two fold; one you don’t need to pay for a collection service and two you get a good quality compost as the result\n
+        You will be reducing the need for resources used in the processing of your food waste\n
+        You will help to protect biodiversity using your homemade compost in place of shop bought compost which can be made of peat\n
+        You will be helping to build up healthy soil by placing nutrients back in there.\n\n
+        How does composting work?\n
+        Composting is a biological process that requires food (organic materials), water and air. The process involves a wide variety of organisms, which are naturally present in our environment.    </string>
+    <string name="glass_detail">Ireland has a long-standing tradition of using glass for various purposes like packaging, decoration, and construction. In Ireland, recycling glass is seen as one of the most effective ways to reduce environmental pollution and conserve energy.\n\n
+        One of the key benefits of recycling glass is that it helps protect our environment. When glass is disposed of in a landfill, it can take up to 1 million years to decompose and emit greenhouse gases that contribute to global warming. By recycling glass correctly, we can reduce carbon emissions, save energy and protect natural resources. Ireland is already on track to meet new EU recycling targets for 2025 and 2030 for glass.\n
+        Recycling one ton of glass saves 1.2 tons of raw materials such as sand and limestone and reduces carbon dioxide emissions by about 300 kilograms.\n\n
+        Making new glass from raw materials requires a lot of energy. However, recycling glass requires much less energy, saving up to 50% in energy costs. When glass is recycled, it is melted down and shaped into new products, saving energy and reducing the need for raw materials. As Ireland moves towards a more sustainable future, recycling glass is one of the easiest ways to conserve energy and reduce our carbon footprint.\n\n
+        Recycling glass reduces the amount of waste that ends up in landfills. By reducing landfill waste, we can prolong the life of landfills, reduce greenhouse gas emissions, and ultimately reduce the impact on the environment. Nationally, we could reduce our landfill waste by as much as 90% if we recycle all the available glass. Currently glass is one of our best performing items for recycling.</string>
 </resources>
