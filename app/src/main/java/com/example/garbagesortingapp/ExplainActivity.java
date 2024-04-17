@@ -3,7 +3,10 @@ package com.example.garbagesortingapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ public class ExplainActivity extends AppCompatActivity {
     private ImageView imgTrashType;
     private TextView tvTrashTitle;
     private TextView tvTrashDetail;
+    private Button btnStartQuiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,7 @@ public class ExplainActivity extends AppCompatActivity {
         imgTrashType = findViewById(R.id.imgTrashType);
         tvTrashTitle = findViewById(R.id.tvTrashTitle);
         tvTrashDetail = findViewById(R.id.tvTrashDetail);
+        btnStartQuiz = findViewById(R.id.btnStartQuiz);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -53,5 +58,13 @@ public class ExplainActivity extends AppCompatActivity {
                     break;
             }
         }
+
+        btnStartQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ExplainActivity.this, QuizActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
