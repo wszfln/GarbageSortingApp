@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,11 +27,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -47,6 +43,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button searchButton;
     private MapView mapView;
     private FirebaseFirestore firestore;
+    private ImageView imgViewFilterGreen;
+    private ImageView imgViewFilterPurple;
+    private ImageView imgViewFilterBlue;
+    private boolean[] categoryFilters;
+    private Button btnReset;
+    private Marker locationMarker; // Tags for tracking targeting features
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationSearch = findViewById(R.id.edtLocation);
         searchButton = findViewById(R.id.btnSearch);
         mapView = findViewById(R.id.mapView);
+        imgViewFilterGreen = findViewById(R.id.imgViewFilterGreen);
+        imgViewFilterPurple = findViewById(R.id.imgViewFilterPurple);
+        imgViewFilterBlue = findViewById(R.id.imgViewFilterBlue);
+        categoryFilters = new boolean[]{true, true, true}; //have 3 categories
+        btnReset = findViewById(R.id.btnReset);
         // Setup map view
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
@@ -74,6 +81,35 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (!location.isEmpty()) {
                     searchLocation(location);
                 }
+            }
+        });
+
+        imgViewFilterGreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleCategoryFilter(0); // Index for Bring Banks
+                updateMapMarkers();
+            }
+        });
+        imgViewFilterPurple.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleCategoryFilter(1); // Index for Civic Recycling Centres
+                updateMapMarkers();
+            }
+        });
+        imgViewFilterBlue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleCategoryFilter(2); // Index for Free Electrical Recycling Drop-Off Points
+                updateMapMarkers();
+            }
+        });
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetFiltersAndMap();
             }
         });
     }
@@ -172,8 +208,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             runOnUiThread(() -> {
                 // Move to a new location
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
-                // add a new tag here
-                mMap.addMarker(new MarkerOptions()
+                // Check if an existing location marker is there and remove it
+                if (locationMarker != null) {
+                    locationMarker.remove();
+                }
+                // Add a new location marker here and save the reference
+                locationMarker = mMap.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title("Location for Eircode: " + inputEircode));
             });
@@ -200,6 +240,102 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             default:
                 return BitmapDescriptorFactory.HUE_RED;
         }
+    }
+
+    // Toggle filter status
+    private void toggleCategoryFilter(int index) {
+        // Set all filters to inactive
+        for (int i = 0; i < categoryFilters.length; i++) {
+            categoryFilters[i] = false;
+        }
+        // Activate selected category
+        categoryFilters[index] = true;
+    }
+
+    private void updateMapMarkers() {
+        mMap.clear(); // Clear all marks
+
+        firestore.collection("collection_points")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            for (DocumentSnapshot document : queryDocumentSnapshots) {
+                                CollectionPoint point = document.toObject(CollectionPoint.class);
+                                if (point != null) {
+                                    // Add tags only if filter allows it
+                                    if (categoryFilters[getCategoryIndex(point.getCategory())]) {
+                                        addMarkerForPoint(point);
+                                    }
+                                }
+                            }
+                        } else {
+                            Log.d("MapsActivity", "No collection points found.");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("MapsActivity", "Error loading collection points: ", e);
+                    }
+                });
+    }
+
+    private void addMarkerForPoint(CollectionPoint point) {
+        try {
+            List<Address> addresses = new Geocoder(MapsActivity.this).getFromLocationName(point.getAddress(), 1);
+            if (!addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(latLng)
+                        .icon(BitmapDescriptorFactory.defaultMarker(getMarkerColor(point.getCategory())))
+                        .title(point.getName())
+                        .snippet(point.getAddress() + "\nEircode: " + point.getEircode());
+                mMap.addMarker(markerOptions);
+            }
+        } catch (IOException e) {
+            Log.e("MapsActivity", "Geocode failure: ", e);
+        }
+    }
+
+    private boolean shouldDisplayMarker(String category) {
+        int index = getCategoryIndex(category);
+        // Ensure the index is within the bounds of the array
+        if (index >= 0 && index < categoryFilters.length) {
+            return categoryFilters[index];
+        }
+        return false; // If the category is not recognized, do not display the marker
+    }
+
+    private int getCategoryIndex(String category) {
+        switch (category) {
+            case "Bring Banks":
+                return 0;
+            case "Civic Recycling Centres":
+                return 1;
+            case "Free Electrical Recycling Drop-Off Points":
+                return 2;
+            default:
+                return -1; // For unrecognized categories, an invalid index is returned
+        }
+    }
+
+    // Reset filters and load all locations
+    private void resetFiltersAndMap() {
+        // If there is an anchor mark, remove it
+        if (locationMarker != null) {
+            locationMarker.remove();
+            locationMarker = null; // Reset anchor tag reference
+        }
+        // Reset filter to initial state
+        for (int i = 0; i < categoryFilters.length; i++) {
+            categoryFilters[i] = true;
+        }
+        // Reload all locations
+        loadAllCollectionPoints();
     }
 
     // Override lifecycle callbacks for MapView

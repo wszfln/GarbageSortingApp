@@ -40,4 +40,10 @@
         Recycling one ton of glass saves 1.2 tons of raw materials such as sand and limestone and reduces carbon dioxide emissions by about 300 kilograms.\n\n
         Making new glass from raw materials requires a lot of energy. However, recycling glass requires much less energy, saving up to 50% in energy costs. When glass is recycled, it is melted down and shaped into new products, saving energy and reducing the need for raw materials. As Ireland moves towards a more sustainable future, recycling glass is one of the easiest ways to conserve energy and reduce our carbon footprint.\n\n
         Recycling glass reduces the amount of waste that ends up in landfills. By reducing landfill waste, we can prolong the life of landfills, reduce greenhouse gas emissions, and ultimately reduce the impact on the environment. Nationally, we could reduce our landfill waste by as much as 90% if we recycle all the available glass. Currently glass is one of our best performing items for recycling.</string>
+    <string name="filter_bring_banks">Filter by Bring Banks</string>
+    <string name="filter_civic_recycling_centres">Filter by Civic Recycling Centres</string>
+    <string name="filter_free_electrical_recycling_drop_off_points">Filter by Free Electrical Recycling Drop-Off Points</string>
+    <string name="bring_banks">Bring Banks</string>
+    <string name="civic_recycling_centres">Civic Recycling Centres</string>
+    <string name="free_electrical_recycling_drop_off_points">Free Electrical Recycling Drop-Off Points</string>
 </resources>
