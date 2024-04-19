@@ -131,6 +131,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        imgBtnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
     private void startActivityWithExtra(String trashType) {

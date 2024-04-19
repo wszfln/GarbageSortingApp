@@ -1,6 +1,7 @@
 package com.example.garbagesortingapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -79,17 +84,33 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
-        mDatabase.child("users").child(userId).setValue(user);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> user = new HashMap<>();
+        user.put("username", name);
+        user.put("email", email);
+        // Initialize other fields to default values or leave them blank
+        user.put("gender", ""); // Empty string or you can use default value
+        user.put("dateOfBirth", "");
+        user.put("address", "");
+
+        db.collection("users").document(userId).set(user)
+                .addOnSuccessListener(aVoid -> Log.d("Auth", "DocumentSnapshot added with ID: " + userId))
+                .addOnFailureListener(e -> Log.w("Auth", "Error adding document", e));
     }
 
     public static class User {
         public String username;
         public String email;
+        public String gender;
+        public String dateOfBirth;
+        public String address;
 
-        public User(String username, String email) {
+        public User(String username, String email, String gender, String dateOfBirth, String address) {
             this.username = username;
             this.email = email;
+            this.gender = gender;
+            this.dateOfBirth = dateOfBirth;
+            this.address = address;
         }
     }
 }

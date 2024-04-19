@@ -72,27 +72,35 @@ public class AnswerActivity extends AppCompatActivity {
         imgBtnReturn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();  // 结束当前活动
+                finish();  // End current activity
+            }
+        });
+
+        imgBtnAccount3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AnswerActivity.this, UserProfileActivity.class);
+                startActivity(intent);
             }
         });
 
     }
 
-    // 保存状态
+    // save state
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        // 保存Intent传递的信息
+        // Save the information passed by the Intent
         outState.putString("name", txvName.getText().toString());
         outState.putString("binName", txvResult.getText().toString());
         outState.putString("information", txvInformation.getText().toString());
-        outState.putInt("imageResourceId", (Integer) imvResult.getTag());  // 确保设置了tag
+        outState.putInt("imageResourceId", (Integer) imvResult.getTag());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        // 恢复文本和图片资源
+        // Recover text and image resources
         txvName.setText(savedInstanceState.getString("name"));
         txvResult.setText(savedInstanceState.getString("binName"));
         txvInformation.setText(savedInstanceState.getString("information"));

@@ -74,7 +74,7 @@ public class QueryActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> takePictureLauncher;
     private List<String> labels = new ArrayList<>();
     private ActivityResultLauncher<Intent> selectImageLauncher;
-    private Bitmap selectedImageBitmap; // 用于存储用户选择的图片
+    private Bitmap selectedImageBitmap; // Used to store images selected by the user
     private Button btnReset;
 
     private void loadLabels() {
@@ -232,15 +232,10 @@ public class QueryActivity extends AppCompatActivity {
             }
         });
 
-
-
         // Initialize the camera when the scan button is clicked
         btnScan2.setOnClickListener(view -> takePictureLauncher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE)));
 
         // Select part of photo query from album
-        // Initialize selectImageLauncher and process image selection results
-
-
         // Set a click listener for imageViewUpload to launch the image picker
         imageViewUpload.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -262,7 +257,7 @@ public class QueryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetActivity();
-                finish();  // 结束当前活动
+                finish();
             }
         });
 
@@ -270,6 +265,14 @@ public class QueryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetActivity();
+            }
+        });
+
+        imgBtnAccount2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QueryActivity.this, UserProfileActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -427,11 +430,9 @@ public class QueryActivity extends AppCompatActivity {
     }
 
     private void resetActivity() {
-        edtSearch.setText(""); // 清除搜索框内容
-        imageViewUpload.setImageDrawable(null); // 清除图片预览
-        selectedImageBitmap = null; // 清除选定的图片
-
-        // 可以添加更多的重置逻辑，如清除内部状态或重新加载数据
+        edtSearch.setText(""); // Clear search box contents
+        imageViewUpload.setImageDrawable(null); // Clear image preview
+        selectedImageBitmap = null; // Clear selected images
     }
 
 }

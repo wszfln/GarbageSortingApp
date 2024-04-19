@@ -1,5 +1,6 @@
 package com.example.garbagesortingapp;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -116,7 +117,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         imgBtnReturn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();  // 结束当前活动
+                finish();
+            }
+        });
+
+        imgBtnAccount4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, UserProfileActivity.class);
+                startActivity(intent);
             }
         });
 

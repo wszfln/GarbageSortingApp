@@ -72,6 +72,10 @@
         <activity
             android:name=".QuizActivity"
             android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UserProfileActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

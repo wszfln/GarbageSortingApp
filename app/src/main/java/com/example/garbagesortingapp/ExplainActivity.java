@@ -34,9 +34,9 @@ public class ExplainActivity extends AppCompatActivity {
         tvTrashDetail = findViewById(R.id.tvTrashDetail);
         btnStartQuiz = findViewById(R.id.btnStartQuiz);
 
-        // 初始化视图和处理
+        // Initialize views and handle
         if (savedInstanceState != null) {
-            // 恢复保存的状态
+            // Restore saved state
             tvTrashTitle.setText(savedInstanceState.getString("TrashType"));
             tvTrashDetail.setText(savedInstanceState.getString("TrashDetail"));
             imgTrashType.setImageResource(savedInstanceState.getInt("ImageResource"));
@@ -78,7 +78,15 @@ public class ExplainActivity extends AppCompatActivity {
         imgBtnReturn7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();  // 结束当前活动
+                finish();  // End current activity
+            }
+        });
+
+        imgBtnAccount7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExplainActivity.this, UserProfileActivity.class);
+                startActivity(intent);
             }
         });
     }

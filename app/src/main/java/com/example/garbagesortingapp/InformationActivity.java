@@ -63,7 +63,16 @@ public class InformationActivity extends AppCompatActivity {
         imgBtnReturn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();  // 结束当前活动
+                finish();  // End current activity
+            }
+        });
+
+        imgBtnAccount5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 创建Intent来启动UserProfileActivity
+                Intent intent = new Intent(InformationActivity.this, UserProfileActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -108,11 +117,11 @@ public class InformationActivity extends AppCompatActivity {
         });
     }
 
-    // 保存状态
+    // save state
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        // 检查适配器中的数据是否可用
+        // Check if data is available in adapter
         if (newsList.getAdapter() != null) {
             ArrayList<String> titles = new ArrayList<>();
             for (int i = 0; i < newsList.getAdapter().getCount(); i++) {

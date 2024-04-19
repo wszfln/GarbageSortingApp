@@ -3,6 +3,7 @@ package com.example.garbagesortingapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,7 +68,15 @@ public class QuizActivity extends AppCompatActivity {
         imgBtnReturn8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();  // 结束当前活动
+                finish();
+            }
+        });
+
+        imgBtnAccount8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuizActivity.this, UserProfileActivity.class);
+                startActivity(intent);
             }
         });
 
