@@ -75,6 +75,7 @@ public class QueryActivity extends AppCompatActivity {
     private List<String> labels = new ArrayList<>();
     private ActivityResultLauncher<Intent> selectImageLauncher;
     private Bitmap selectedImageBitmap; // 用于存储用户选择的图片
+    private Button btnReset;
 
     private void loadLabels() {
         try {
@@ -111,23 +112,6 @@ public class QueryActivity extends AppCompatActivity {
         }
     }
 
-    private void initializeCamera() {
-        // Check if camera permission already exists
-        Log.d(TAG, "Initializing camera");
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            // No permission, need to request
-            Log.d(TAG, "Camera permission not granted. Requesting permission.");
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA},
-                    PERMISSION_REQUEST_CAMERA);
-        } else {
-            // Already have permission to start the camera
-            Log.d(TAG, "Camera permission granted. Opening camera.");
-            dispatchTakePictureIntent();
-        }
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +129,10 @@ public class QueryActivity extends AppCompatActivity {
         btnScan2 = findViewById(R.id.btnScan2);
         btnScan3 = findViewById(R.id.btnScan3);
         edtSearch = findViewById(R.id.edtSearch);
+        btnReset = findViewById(R.id.btnReset);
 
+        // 初始化Activity Result Launchers
+        initLaunchers();
         loadModel();
         loadLabels();
         initializeCamera();
@@ -245,38 +232,14 @@ public class QueryActivity extends AppCompatActivity {
             }
         });
 
-        takePictureLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        Bundle extras = result.getData().getExtras();
-                        Bitmap imageBitmap = (Bitmap) extras.get("data");
-                        String itemName = classifyImage(imageBitmap);
-                        queryFirebaseAndNavigate(itemName);
-                    }
-                }
-        );
+
 
         // Initialize the camera when the scan button is clicked
         btnScan2.setOnClickListener(view -> takePictureLauncher.launch(new Intent(MediaStore.ACTION_IMAGE_CAPTURE)));
 
         // Select part of photo query from album
         // Initialize selectImageLauncher and process image selection results
-        selectImageLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        Uri imageUri = result.getData().getData();
-                        try {
-                            // Convert Uri to Bitmap and display on imageViewUpload
-                            selectedImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                            imageViewUpload.setImageBitmap(selectedImageBitmap);
-                        } catch (IOException e) {
-                            Log.e(TAG, "IOException when converting Uri to Bitmap", e);
-                        }
-                    }
-                }
-        );
+
 
         // Set a click listener for imageViewUpload to launch the image picker
         imageViewUpload.setOnClickListener(v -> {
@@ -295,7 +258,67 @@ public class QueryActivity extends AppCompatActivity {
             }
         });
 
+        imgBtnReturn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetActivity();
+                finish();  // 结束当前活动
+            }
+        });
 
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetActivity();
+            }
+        });
+
+    }
+
+    private void initLaunchers() {
+        takePictureLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Bundle extras = result.getData().getExtras();
+                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+                        String itemName = classifyImage(imageBitmap);
+                        queryFirebaseAndNavigate(itemName);
+                    }
+                }
+        );
+
+        selectImageLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri imageUri = result.getData().getData();
+                        try {
+                            selectedImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                            imageViewUpload.setImageBitmap(selectedImageBitmap);
+                        } catch (IOException e) {
+                            Log.e(TAG, "IOException when converting Uri to Bitmap", e);
+                        }
+                    }
+                }
+        );
+    }
+
+    private void initializeCamera() {
+        // Check if camera permission already exists
+        Log.d(TAG, "Initializing camera");
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            // No permission, need to request
+            Log.d(TAG, "Camera permission not granted. Requesting permission.");
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                    PERMISSION_REQUEST_CAMERA);
+        } else {
+            // Already have permission to start the camera
+            Log.d(TAG, "Camera permission granted. Opening camera.");
+            dispatchTakePictureIntent();
+        }
     }
 
 
@@ -401,6 +424,14 @@ public class QueryActivity extends AppCompatActivity {
         intent.putExtra("category", document.getString("category"));
         intent.putExtra("information", document.getString("information"));
         startActivity(intent);
+    }
+
+    private void resetActivity() {
+        edtSearch.setText(""); // 清除搜索框内容
+        imageViewUpload.setImageDrawable(null); // 清除图片预览
+        selectedImageBitmap = null; // 清除选定的图片
+
+        // 可以添加更多的重置逻辑，如清除内部状态或重新加载数据
     }
 
 }

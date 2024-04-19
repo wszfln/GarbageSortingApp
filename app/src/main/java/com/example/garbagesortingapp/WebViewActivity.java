@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class WebViewActivity extends AppCompatActivity {
         if (url != null) {
             webView.loadUrl(url);
         }
+
 
     }
 }

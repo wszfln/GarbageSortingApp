@@ -63,6 +63,14 @@ public class QuizActivity extends AppCompatActivity {
                 }
             }
         });
+
+        imgBtnReturn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();  // 结束当前活动
+            }
+        });
+
     }
 
     // Clears the background color and selected status of all previous options

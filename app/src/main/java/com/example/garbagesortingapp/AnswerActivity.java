@@ -3,6 +3,7 @@ package com.example.garbagesortingapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,7 +69,33 @@ public class AnswerActivity extends AppCompatActivity {
             imvResult.setImageResource(imageResourceId);
         }
 
+        imgBtnReturn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();  // 结束当前活动
+            }
+        });
 
+    }
 
+    // 保存状态
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // 保存Intent传递的信息
+        outState.putString("name", txvName.getText().toString());
+        outState.putString("binName", txvResult.getText().toString());
+        outState.putString("information", txvInformation.getText().toString());
+        outState.putInt("imageResourceId", (Integer) imvResult.getTag());  // 确保设置了tag
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // 恢复文本和图片资源
+        txvName.setText(savedInstanceState.getString("name"));
+        txvResult.setText(savedInstanceState.getString("binName"));
+        txvInformation.setText(savedInstanceState.getString("information"));
+        imvResult.setImageResource(savedInstanceState.getInt("imageResourceId"));
     }
 }

@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +59,14 @@ public class InformationActivity extends AppCompatActivity {
 
         newsService = retrofit.create(NewsService.class);
         loadNews();
+
+        imgBtnReturn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();  // 结束当前活动
+            }
+        });
+
     }
     private void loadNews() {
         newsService.getNews("Ireland AND recycling AND 'waste management'", API_KEY).enqueue(new Callback<NewsResponse>() {
@@ -96,6 +106,20 @@ public class InformationActivity extends AppCompatActivity {
                 Toast.makeText(InformationActivity.this, "Network error, please try again later.", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // 保存状态
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // 检查适配器中的数据是否可用
+        if (newsList.getAdapter() != null) {
+            ArrayList<String> titles = new ArrayList<>();
+            for (int i = 0; i < newsList.getAdapter().getCount(); i++) {
+                titles.add((String) newsList.getAdapter().getItem(i));
+            }
+            outState.putStringArrayList("newsTitles", titles);
+        }
     }
 
     public class Article {

@@ -112,6 +112,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 resetFiltersAndMap();
             }
         });
+
+        imgBtnReturn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();  // 结束当前活动
+            }
+        });
+
     }
 
     @Override
