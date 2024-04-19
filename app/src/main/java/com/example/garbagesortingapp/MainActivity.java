@@ -14,7 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView txvReturn;
+    private ImageButton imgBtnReturn;
     private TextView txvRecycle;
     private TextView txvKitchen;
     private TextView txvGeneral;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Get component
-        txvReturn = findViewById(R.id.txvReturn);
+        imgBtnReturn = findViewById(R.id.imgBtnReturn);
         txvRecycle = findViewById(R.id.txvRecycle);
         txvKitchen = findViewById(R.id.txvKitchen);
         txvGeneral = findViewById(R.id.txvGeneral);

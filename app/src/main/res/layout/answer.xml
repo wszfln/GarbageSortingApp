@@ -17,16 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txvReturn3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:text="Return"
-        android:textColor="#FAF7F7"
-        android:textSize="48sp"
+    <ImageButton
+        android:id="@+id/imgBtnReturn3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back" />
 
     <ImageButton
         android:id="@+id/imgBtnAccount3"
@@ -62,6 +59,7 @@
                 android:layout_marginStart="108dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="108dp"
+                android:gravity="center"
                 android:textSize="48sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

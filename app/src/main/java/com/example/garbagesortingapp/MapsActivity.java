@@ -40,7 +40,7 @@ import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
     private Toolbar tlb4;
-    private TextView txvReturn4;
+    private ImageButton imgBtnReturn4;
     private ImageButton imgBtnAccount4;
     private GoogleMap mMap;
     private EditText locationSearch;
@@ -56,7 +56,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         tlb4 = findViewById(R.id.tlb4);
         // Set the Toolbar as the app bar for the activity
         setSupportActionBar(tlb4);
-        txvReturn4 = findViewById(R.id.txvReturn4);
+        imgBtnReturn4 = findViewById(R.id.imgBtnReturn4);
         imgBtnAccount4 = findViewById(R.id.imgBtnAccount4);
         locationSearch = findViewById(R.id.edtLocation);
         searchButton = findViewById(R.id.btnSearch);

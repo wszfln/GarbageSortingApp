@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
     private Toolbar tlb8;
-    private TextView txvReturn8;
+    private ImageButton imgBtnReturn8;
     private ImageButton imgBtnAccount8;
     private FirebaseFirestore db;
     private TextView questionTextView, infoTextView;
@@ -37,7 +37,7 @@ public class QuizActivity extends AppCompatActivity {
         tlb8 = findViewById(R.id.tlb8);
         // Set the Toolbar as the app bar for the activity
         setSupportActionBar(tlb8);
-        txvReturn8 = findViewById(R.id.txvReturn8);
+        imgBtnReturn8 = findViewById(R.id.imgBtnReturn8);
         imgBtnAccount8 = findViewById(R.id.imgBtnAccount8);
         questionTextView = findViewById(R.id.questionText);
         infoTextView = findViewById(R.id.infoText);

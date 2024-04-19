@@ -60,7 +60,7 @@ import android.Manifest;
 public class QueryActivity extends AppCompatActivity {
     private static final String TAG = QueryActivity.class.getSimpleName();
     private Toolbar tlb2;
-    private TextView txvReturn2;
+    private ImageButton imgBtnReturn2;
     private ImageView imvQuery;
     private ImageView imageViewUpload;
     private ImageButton imgBtnAccount2;
@@ -137,7 +137,7 @@ public class QueryActivity extends AppCompatActivity {
         tlb2 = findViewById(R.id.tlb2);
         // Use current Toolbar as app bar
         setSupportActionBar(tlb2);
-        txvReturn2 = findViewById(R.id.txvReturn2);
+        imgBtnReturn2 = findViewById(R.id.imgBtnReturn2);
         imvQuery = findViewById(R.id.imvQuery);
         imageViewUpload = findViewById(R.id.imageViewUpload);
         imgBtnAccount2 = findViewById(R.id.imgBtnAccount2);

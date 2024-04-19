@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AnswerActivity extends AppCompatActivity {
 
     private Toolbar tlb3;
-    private TextView txvReturn3;
+    private ImageButton imgBtnReturn3;
     private ImageButton imgBtnAccount3;
     private TextView txvName;
     private TextView txvResult;
@@ -30,7 +30,7 @@ public class AnswerActivity extends AppCompatActivity {
         tlb3 = findViewById(R.id.tlb3);
         // Use current Toolbar as app bar
         setSupportActionBar(tlb3);
-        txvReturn3 = findViewById(R.id.txvReturn3);
+        imgBtnReturn3 = findViewById(R.id.imgBtnReturn3);
         imgBtnAccount3 = findViewById(R.id.imgBtnAccount3);
         txvName = findViewById(R.id.txvName);
         txvResult = findViewById(R.id.txvResult);

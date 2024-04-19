@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class ExplainActivity extends AppCompatActivity {
     private Toolbar tlb7;
-    private TextView txvReturn7;
+    private ImageButton imgBtnReturn7;
     private ImageButton imgBtnAccount7;
     private ImageView imgTrashType;
     private TextView tvTrashTitle;
@@ -27,7 +27,7 @@ public class ExplainActivity extends AppCompatActivity {
         tlb7 = findViewById(R.id.tlb7);
         // Set the Toolbar as the app bar for the activity
         setSupportActionBar(tlb7);
-        txvReturn7 = findViewById(R.id.txvReturn7);
+        imgBtnReturn7 = findViewById(R.id.imgBtnReturn7);
         imgBtnAccount7 = findViewById(R.id.imgBtnAccount7);
         imgTrashType = findViewById(R.id.imgTrashType);
         tvTrashTitle = findViewById(R.id.tvTrashTitle);

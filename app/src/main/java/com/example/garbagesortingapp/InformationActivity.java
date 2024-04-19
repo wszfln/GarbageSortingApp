@@ -1,9 +1,14 @@
 package com.example.garbagesortingapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -11,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +29,7 @@ import retrofit2.http.Query;
 
 public class InformationActivity extends AppCompatActivity {
     private Toolbar tlb5;
-    private TextView txvReturn5;
+    private ImageButton imgBtnReturn5;
     private ImageButton imgBtnAccount5;
     private TextView newsTitle;
     private ListView newsList;
@@ -41,7 +45,7 @@ public class InformationActivity extends AppCompatActivity {
         tlb5 = findViewById(R.id.tlb5);
         // Set the Toolbar as the app bar for the activity
         setSupportActionBar(tlb5);
-        txvReturn5 = findViewById(R.id.txvReturn5);
+        imgBtnReturn5 = findViewById(R.id.imgBtnReturn5);
         imgBtnAccount5 = findViewById(R.id.imgBtnAccount5);
         newsTitle = findViewById(R.id.newsTitle);
         newsList = findViewById(R.id.newsList);
@@ -54,7 +58,6 @@ public class InformationActivity extends AppCompatActivity {
         newsService = retrofit.create(NewsService.class);
         loadNews();
     }
-
     private void loadNews() {
         newsService.getNews("Ireland AND recycling AND 'waste management'", API_KEY).enqueue(new Callback<NewsResponse>() {
             @Override
@@ -64,8 +67,8 @@ public class InformationActivity extends AppCompatActivity {
                     List<String> titles = articles.stream()
                             .map(article -> article.getTitle())
                             .collect(Collectors.toList());
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(InformationActivity.this,
-                            android.R.layout.simple_list_item_1, titles);
+                    // Using the custom adapter
+                    NewsAdapter adapter = new NewsAdapter(InformationActivity.this, titles);
                     newsList.setAdapter(adapter);
 
                     // Set an item click listener to the ListView
@@ -128,5 +131,40 @@ public class InformationActivity extends AppCompatActivity {
         Call<NewsResponse> getNews(
                 @Query("q") String query,
                 @Query("apiKey") String apiKey);
+    }
+
+    public class NewsAdapter extends BaseAdapter {
+        private Context context;
+        private List<String> newsTitles;
+
+        public NewsAdapter(Context context, List<String> newsTitles) {
+            this.context = context;
+            this.newsTitles = newsTitles;
+        }
+
+        @Override
+        public int getCount() {
+            return newsTitles.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return newsTitles.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.list_item_news, parent, false);
+            }
+            TextView textView = convertView.findViewById(R.id.textViewItem);
+            textView.setText(newsTitles.get(position));
+            return convertView;
+        }
     }
 }

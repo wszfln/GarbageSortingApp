@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class WebViewActivity extends AppCompatActivity {
     private Toolbar tlb6;
-    private TextView txvReturn6;
+    private ImageButton imgBtnReturn6;
     private ImageButton imgBtnAccount6;
     private WebView webView;
 
@@ -21,7 +21,7 @@ public class WebViewActivity extends AppCompatActivity {
         tlb6 = findViewById(R.id.tlb6);
         // Set the Toolbar as the app bar for the activity
         setSupportActionBar(tlb6);
-        txvReturn6 = findViewById(R.id.txvReturn6);
+        imgBtnAccount6 = findViewById(R.id.imgBtnAccount6);
         imgBtnAccount6 = findViewById(R.id.imgBtnAccount6);
         webView = findViewById(R.id.webview);
 
