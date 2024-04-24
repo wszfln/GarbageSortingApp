@@ -131,6 +131,11 @@ public class QueryActivity extends AppCompatActivity {
         edtSearch = findViewById(R.id.edtSearch);
         btnReset = findViewById(R.id.btnReset);
 
+        boolean isTourist = getIntent().getBooleanExtra("isTourist", false);
+        if (isTourist) {
+            disableUserSpecificFeatures();
+        }
+
         // 初始化Activity Result Launchers
         initLaunchers();
         loadModel();
@@ -433,6 +438,11 @@ public class QueryActivity extends AppCompatActivity {
         edtSearch.setText(""); // Clear search box contents
         imageViewUpload.setImageDrawable(null); // Clear image preview
         selectedImageBitmap = null; // Clear selected images
+    }
+
+    // Hide or disable certain features
+    private void disableUserSpecificFeatures() {
+        imgBtnAccount2.setVisibility(View.GONE);
     }
 
 }

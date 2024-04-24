@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnPosition;
     private Toolbar tlb1;
     private ImageView imv1;
+    private Button btnLogout2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,30 @@ public class MainActivity extends AppCompatActivity {
         // Use current Toolbar as app bar
         setSupportActionBar(tlb1);
         imv1 = findViewById(R.id.imv1);
+        btnLogout2 = findViewById(R.id.btnLogout2);
 
+        boolean isTourist = getIntent().getBooleanExtra("isTourist", false);
+        if (isTourist) {
+            if (isTourist) {
+                disableUserSpecificFeatures();
+                // Show exit button for tourists
+                btnLogout2.setVisibility(View.VISIBLE);
+                btnLogout2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Click the log out button to return to the login page
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Clear all activities above MainActivity in the task stack
+                        startActivity(intent);
+                        finish(); // End the current Activity to prevent the user from returning to this page through the return key
+                    }
+                });
+            } else {
+                // Users who log in normally do not display the exit button
+                btnLogout2.setVisibility(View.GONE);
+            }
+
+        }
 
         // Define a Runnable to execute after the view is rendered
         btnKnowledge.post(() -> {
@@ -104,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, InformationActivity.class);
+                boolean isTourist = getIntent().getBooleanExtra("isTourist", false);
+                intent.putExtra("isTourist", isTourist);
                 startActivity(intent);
             }
         });
@@ -112,14 +140,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Create an Intent to start the QueryActivity
                 Intent intent = new Intent(MainActivity.this, QueryActivity.class);
+                boolean isTourist = getIntent().getBooleanExtra("isTourist", false);
+                intent.putExtra("isTourist", isTourist);
                 startActivity(intent);
             }
         });
         btnPosition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(intent);
+                // Determine whether the user is a tourist
+                if (isTourist) {
+                    // If it is a tourist, display a Toast prompt
+                    Toast.makeText(MainActivity.this, "You need to register and log in to use this feature", Toast.LENGTH_LONG).show();
+                } else {
+                    // If not a tourist, performs the normal function of the button
+                    Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });
@@ -139,4 +176,19 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("TRASH_TYPE", trashType);
         startActivity(intent);
     }
+
+    // Hide or disable certain features
+    private void disableUserSpecificFeatures() {
+        imgBtnAccount.setVisibility(View.GONE);
+
+        // Set the click event of btnPosition for guest mode
+        btnPosition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "You need to register and log in to use this feature", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
 }

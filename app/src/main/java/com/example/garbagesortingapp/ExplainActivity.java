@@ -34,6 +34,11 @@ public class ExplainActivity extends AppCompatActivity {
         tvTrashDetail = findViewById(R.id.tvTrashDetail);
         btnStartQuiz = findViewById(R.id.btnStartQuiz);
 
+        boolean isTourist = getIntent().getBooleanExtra("isTourist", false);
+        if (isTourist) {
+            disableUserSpecificFeatures();
+        }
+
         // Initialize views and handle
         if (savedInstanceState != null) {
             // Restore saved state
@@ -89,5 +94,10 @@ public class ExplainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    // Hide or disable certain features
+    private void disableUserSpecificFeatures() {
+        imgBtnAccount7.setVisibility(View.GONE);
     }
 }

@@ -26,6 +26,11 @@ public class WebViewActivity extends AppCompatActivity {
         imgBtnAccount6 = findViewById(R.id.imgBtnAccount6);
         webView = findViewById(R.id.webview);
 
+        boolean isTourist = getIntent().getBooleanExtra("isTourist", false);
+        if (isTourist) {
+            disableUserSpecificFeatures();
+        }
+
         // Enable JavaScript (if the news websites require JavaScript)
         webView.getSettings().setJavaScriptEnabled(true);
 
@@ -36,5 +41,10 @@ public class WebViewActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    // Hide or disable certain features
+    private void disableUserSpecificFeatures() {
+        imgBtnAccount6.setVisibility(View.GONE);
     }
 }

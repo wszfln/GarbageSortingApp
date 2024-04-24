@@ -45,6 +45,11 @@ public class QuizActivity extends AppCompatActivity {
         answersGroup = findViewById(R.id.answersGroup);
         nextButton = findViewById(R.id.nextButton);
 
+        boolean isTourist = getIntent().getBooleanExtra("isTourist", false);
+        if (isTourist) {
+            disableUserSpecificFeatures();
+        }
+
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
 
@@ -169,5 +174,10 @@ public class QuizActivity extends AppCompatActivity {
         String information = lastResult.getString("information");
         infoTextView.setText(information);
         infoTextView.setVisibility(View.VISIBLE);
+    }
+
+    // Hide or disable certain features
+    private void disableUserSpecificFeatures() {
+        imgBtnAccount8.setVisibility(View.GONE);
     }
 }

@@ -38,6 +38,11 @@ public class AnswerActivity extends AppCompatActivity {
         imvResult = findViewById(R.id.imvResult);
         txvInformation = findViewById(R.id.txvInformation);
 
+        boolean isTourist = getIntent().getBooleanExtra("isTourist", false);
+        if (isTourist) {
+            disableUserSpecificFeatures();
+        }
+
         // Get the category from the Intent
         Intent intent = getIntent();
         if (intent != null) {
@@ -106,4 +111,10 @@ public class AnswerActivity extends AppCompatActivity {
         txvInformation.setText(savedInstanceState.getString("information"));
         imvResult.setImageResource(savedInstanceState.getInt("imageResourceId"));
     }
+
+    // Hide or disable certain features
+    private void disableUserSpecificFeatures() {
+        imgBtnAccount3.setVisibility(View.GONE);
+    }
+
 }

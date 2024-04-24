@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         btnTourist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startMainActivityAsTourist();
             }
         });
         txvTitle8.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +99,12 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Please enter email and password", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void startMainActivityAsTourist() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("isTourist", true);
+        startActivity(intent);
     }
 }
 

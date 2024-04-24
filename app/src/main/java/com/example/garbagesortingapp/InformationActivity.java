@@ -52,6 +52,11 @@ public class InformationActivity extends AppCompatActivity {
         newsTitle = findViewById(R.id.newsTitle);
         newsList = findViewById(R.id.newsList);
 
+        boolean isTourist = getIntent().getBooleanExtra("isTourist", false);
+        if (isTourist) {
+            disableUserSpecificFeatures();
+        }
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -129,6 +134,11 @@ public class InformationActivity extends AppCompatActivity {
             }
             outState.putStringArrayList("newsTitles", titles);
         }
+    }
+
+    // Hide or disable certain features
+    private void disableUserSpecificFeatures() {
+        imgBtnAccount5.setVisibility(View.GONE);
     }
 
     public class Article {
