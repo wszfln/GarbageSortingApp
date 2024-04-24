@@ -76,13 +76,6 @@ public class MainActivity extends AppCompatActivity {
             btnQuary.setLayoutParams(paramsQuery);
             btnPosition.setLayoutParams(paramsPosition);
         });
-
-        imgBtnAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         imgBtnRecycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
